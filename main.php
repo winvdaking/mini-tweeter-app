@@ -5,6 +5,7 @@ $configfile = parse_ini_file('conf/config.ini');
 
 use iutnc\tweeterapp\model\User;
 use iutnc\tweeterapp\model\Follow;
+use iutnc\tweeterapp\model\Tweet;
 
 $config = [ /* ces informations doivent être dans un fichier ini */
     'driver'    => 'mysql',
@@ -23,8 +24,15 @@ $db->addConnection($config);
 $db->setAsGlobal();
 $db->bootEloquent();
 
-$f = User::select()->get();
+$users = User::select()->get();
+$tweets = Tweet::select()->orderBy('updated_at')->get();
+$tweetsPositifs = Tweet::where('score', '>', '0')->get();
 
-echo($f);
+$requete = User::select()->where('id', '=', 6);
+$v = $requete->first(); 
+
+echo($tweetsPositifs);
+
+echo($v);
 
 echo phpversion();
