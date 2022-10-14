@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '3ae60bcd395dd3ff797437acc4a6d5af40913b4f',
+        'reference' => 'd711e741757a6284592949bcdb2b86bb88af4558',
         'name' => 'iutnc/tweeter-app',
         'dev' => true,
     ),
@@ -88,7 +88,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '3ae60bcd395dd3ff797437acc4a6d5af40913b4f',
+            'reference' => 'd711e741757a6284592949bcdb2b86bb88af4558',
             'dev_requirement' => false,
         ),
         'nesbot/carbon' => array(
