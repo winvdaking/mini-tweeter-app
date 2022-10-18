@@ -9,4 +9,8 @@ class User extends \Illuminate\Database\Eloquent\Model {
        public    $timestamps = false;    /* si vrai la table doit contenir
                                             les deux colonnes updated_at,
                                             created_at */
+                                          
+       public function tweets(){
+              return $this->hasMany('iutnc\tweeterapp\model\Tweet', 'author');
+       }
 }

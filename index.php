@@ -1,43 +1,36 @@
 <?php
 
-$server = 'localhost';
-$dbname = 'dorian';
-$user = 'admin';
-$pass = 'admin';
+require 'vendor/autoload.php';
+$configfile = parse_ini_file('conf/config.ini');
 
-$dsn = "mysql:host={$server};dbname=${dbname}";
+use iutnc\tweeterapp\model\User;
+use iutnc\tweeterapp\model\Tweet;
 
-/*
-$fullname = 'Dorian Lopez';
-$usrname = 'dorian';
-$lvl = 100;
-$pwd = 'dorian';
-$flw = 3;
-$sqlAddUser = 'INSERT into user (id, fullname, username, password, level, followers) VALUES (11 ,:fn, :usr, :pswd, :lvl, :flw)';
-$req = $db->prepare($sqlAddUser);
-$req->bindParam(':fn', $fullname, PDO::PARAM_STR);
-$req->bindParam(':usr', $usrname, PDO::PARAM_STR);
-$req->bindParam(':pswd', $pwd, PDO::PARAM_STR);
-$req->bindParam(':lvl', $lvl, PDO::PARAM_INT);
-$req->bindParam(':flw', $flw, PDO::PARAM_INT);
-if($req->execute()){
-echo "Ajouté";
-}
+$config = [ /* ces informations doivent être dans un fichier ini */
+    'driver'    => 'mysql',
+    'host'      => $configfile['host'],
+    'database'  => $configfile['database'],
+    'username'  => $configfile['user'],
+    'password'  => $configfile['pass'],
+    'charset'   => 'utf8',
+    'collation' => 'utf8_unicode_ci',
+    'prefix'    => ''
+];
 
-*/
+
 
 try {
-    $db = new \PDO($dsn, $user, $pass, [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
+    $db = new \Illuminate\Database\Capsule\Manager();
+
+    $db->addConnection($config);
+    $db->setAsGlobal();
+    $db->bootEloquent();
+
     if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         switch ($_GET['action']) {
             case 'all_tweets':
-                $sqlTweets = 'SELECT id, text FROM tweet';
-                $tweets = $db->query($sqlTweets);
-
-                $html = "Tweets :<br>";
-                while ($ligne = $tweets->fetch()) {
-                    $html .= $ligne['id'] . " - " . $ligne['text'] . "<br>";
-                }
+                $ctrl = new iutnc\tweeterapp\control\HomeController();
+                $ctrl->execute();
                 break;
 
             case 'all_users':
@@ -64,7 +57,7 @@ try {
                 # code...
                 break;
         }
-    }elseif ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    } elseif ($_SERVER['REQUEST_METHOD'] == 'POST') {
         switch ($_POST['action']) {
             case 'add_user':
                 $sqlAddUser = 'INSERT into user (fullname, username, password, level, followers) VALUES (?, ?, "", 0, 0)';
@@ -92,7 +85,7 @@ echo '
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>My Framework</title>
 </head>
 
 <body>

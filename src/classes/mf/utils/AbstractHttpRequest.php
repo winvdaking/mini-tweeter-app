@@ -1,5 +1,7 @@
 <?php
 
+namespace iutnc\mf\utils;
+
 abstract class AbstractHttpRequest {
 
     protected ?string $script_name = null;
