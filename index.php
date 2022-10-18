@@ -3,26 +3,10 @@
 require 'vendor/autoload.php';
 $configfile = parse_ini_file('conf/config.ini');
 
-use iutnc\tweeterapp\model\User;
-use iutnc\tweeterapp\model\Tweet;
-
-$config = [ /* ces informations doivent être dans un fichier ini */
-    'driver'    => 'mysql',
-    'host'      => $configfile['host'],
-    'database'  => $configfile['database'],
-    'username'  => $configfile['user'],
-    'password'  => $configfile['pass'],
-    'charset'   => 'utf8',
-    'collation' => 'utf8_unicode_ci',
-    'prefix'    => ''
-];
-
-
-
 try {
     $db = new \Illuminate\Database\Capsule\Manager();
 
-    $db->addConnection($config);
+    $db->addConnection($configfile);
     $db->setAsGlobal();
     $db->bootEloquent();
 
@@ -31,6 +15,18 @@ try {
             case 'all_tweets':
                 $ctrl = new iutnc\tweeterapp\control\HomeController();
                 $ctrl->execute();
+                break;
+
+            case 'test':
+                $router = new \iutnc\mf\router\Router();
+
+                $router->addRoute('home', 'list_tweets',      '\iutnc\tweeterapp\control\HomeController');
+                $router->addRoute('view', 'view_tweet',       '\iutnc\tweeterapp\control\TweetController');
+                $router->addRoute('user', 'view_user_tweets', '\iutnc\tweeterapp\control\UserController');
+
+                $router->setDefaultRoute('list_tweets');
+
+                print_r($router->routes());
                 break;
 
             case 'all_users':
