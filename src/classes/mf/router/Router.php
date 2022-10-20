@@ -79,14 +79,20 @@ class Router extends AbstractRouter
      */
     public function urlFor(string $name, array $params = []): string
     {
-        $url = self::$aliases[$name];
-        var_dump($url);
-        return '';
+        $action = self::$aliases[$name];
+        $url = $this->request->script_name .  '?action=' . $action;
+        if (isset($params)) {
+            for ($i=0; $i < count($params); $i++) { 
+                var_dump($params);
+                $url .= '&amp;' . $params[$i][0] . '=' . $params[$i][1];
+            }
+        }
+        return $url;
     }
 
     public static function executeRoute($alias): void
     {
         $route = new self::$routes[self::$aliases[$alias]];
-        $$route->execute();
+        $route->execute();
     }
 }

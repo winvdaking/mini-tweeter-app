@@ -22,7 +22,7 @@ try {
 
     $router->run();
 
-    $router->urlFor('list_tweets');
+    $router->urlFor('user', [['id',  12], ['user', 'john']]);
 
     /*
     if ($_SERVER['REQUEST_METHOD'] == 'GET') {
