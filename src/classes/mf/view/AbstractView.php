@@ -66,7 +66,6 @@ abstract class AbstractView
         $this->data = $data;
     }
 
-
     /* Méthode addStyleSheet
      * 
      * Permet d'ajouter une feuille de style à la liste.

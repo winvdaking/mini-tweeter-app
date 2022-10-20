@@ -1,7 +1,12 @@
 <?php
 
+use iutnc\mf\view\AbstractView;
+
 require 'vendor/autoload.php';
 $configfile = parse_ini_file('conf/config.ini');
+
+AbstractView::setAppTitle('TweeterApp by dodo');
+AbstractView::addStyleSheet('style/style.css');
 
 try {
     $db = new \Illuminate\Database\Capsule\Manager();
@@ -75,26 +80,3 @@ try {
 } catch (\PDOException $th) {
     die($th->getMessage());
 }
-echo '
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Framework</title>
-</head>
-
-<body>
-    <nav>
-        <ul>
-            <li><a href="index.php?action=list_tweets">Afficher les Tweets</a></li>
-            <li><a href="index.php?action=view_tweet&id=55">Afficher le Tweet n°55</a></li>
-            <li><a href="index.php?action=view_user_tweets&id=8">Voir jsp</a></li>
-        </ul>
-    </nav>
-     ' . $html . '
-</body>
-
-</html>';
