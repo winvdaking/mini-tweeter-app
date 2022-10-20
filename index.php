@@ -22,6 +22,8 @@ try {
 
     $router->run();
 
+    $router->urlFor('list_tweets');
+
     /*
     if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         switch ($_GET['action']) {
