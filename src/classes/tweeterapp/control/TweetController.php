@@ -9,6 +9,6 @@ class TweetController extends AbstractController{
 
     public function execute(): void
     {
-        echo Tweet::where('id', '=', $_GET['id'])->get();
+        echo Tweet::where('id', '=', $_GET['id'])->firstOrFail();
     }
 }

@@ -10,23 +10,24 @@ try {
     $db->setAsGlobal();
     $db->bootEloquent();
 
+    $router = new \iutnc\mf\router\Router();
+
+    $router->addRoute('home', 'list_tweets',      '\iutnc\tweeterapp\control\HomeController');
+    $router->addRoute('view', 'view_tweet',       '\iutnc\tweeterapp\control\TweetController');
+    $router->addRoute('user', 'view_user_tweets', '\iutnc\tweeterapp\control\UserController');
+
+    $router->setDefaultRoute('list_tweets');
+
+    //print_r($router->routes());
+
+    $router->run();
+
+    /*
     if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         switch ($_GET['action']) {
             case 'all_tweets':
                 $ctrl = new iutnc\tweeterapp\control\HomeController();
                 $ctrl->execute();
-                break;
-
-            case 'test':
-                $router = new \iutnc\mf\router\Router();
-
-                $router->addRoute('home', 'list_tweets',      '\iutnc\tweeterapp\control\HomeController');
-                $router->addRoute('view', 'view_tweet',       '\iutnc\tweeterapp\control\TweetController');
-                $router->addRoute('user', 'view_user_tweets', '\iutnc\tweeterapp\control\UserController');
-
-                $router->setDefaultRoute('list_tweets');
-
-                print_r($router->routes());
                 break;
 
             case 'all_users':
@@ -48,7 +49,6 @@ try {
                     <button type="submit">Ajouter l\'utilisateur</button>
                 </form>';
                 break;
-
             default:
                 # code...
                 break;
@@ -69,7 +69,7 @@ try {
                 # code...
                 break;
         }
-    }
+    }*/
 } catch (\PDOException $th) {
     die($th->getMessage());
 }
@@ -87,9 +87,9 @@ echo '
 <body>
     <nav>
         <ul>
-            <li><a href="index.php?action=all_tweets">Afficher les Tweets</a></li>
-            <li><a href="index.php?action=all_users">Afficher les Users</a></li>
-            <li><a href="index.php?action=add_user">Ajouter un utilisateur</a></li>
+            <li><a href="index.php?action=list_tweets">Afficher les Tweets</a></li>
+            <li><a href="index.php?action=view_tweet&id=55">Afficher le Tweet n°55</a></li>
+            <li><a href="index.php?action=view_user_tweets&id=8">Voir jsp</a></li>
         </ul>
     </nav>
      ' . $html . '
