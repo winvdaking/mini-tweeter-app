@@ -2,25 +2,30 @@
 
 namespace iutnc\tweeterapp\view;
 
-use iutnc\mf\view\Renderer;
+use iutnc\tweeterapp\model\User;
 
-class HomeView extends TweeterView implements Renderer{
+class HomeView extends TweeterView{
 
     public function render(): string
     {
-        $html = '<h2>Tous les tweets</h2>';
-        $html .= '<ul>';
+        $html = '<section>
+        <article class="theme-backcolor2">  
+        <h2>Latest Tweets</h2>';
 
         foreach ($this->data as $val) {
-            $html .= "<li>{$val->id}. {$val->text}</li>";
+
+            $user = User::where('id', '=', $val->author)->first();
+
+            $html .= "<div class='tweet'>";
+            $html .= "<div class='tweet-text'>{$val->text}</div>";
+            $html .= "<div class='tweet-footer'>
+            <span class='tweet-timestamp'>{$val->created_at}</span>
+            <span class='tweet-author'>{$user->username}</span>";
+            $html .= "</div>";
+            $html .= "</div>";
         }
-        $html .= '</ul>';
+        $html .= '</article></section>';
 
         return $html;
-    }
-
-    public function makeBody(): string
-    {
-        return $this->render();
     }
 }

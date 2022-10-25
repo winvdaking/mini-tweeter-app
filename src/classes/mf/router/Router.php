@@ -83,7 +83,6 @@ class Router extends AbstractRouter
         $url = $this->request->script_name .  '?action=' . $action;
         if (isset($params)) {
             for ($i=0; $i < count($params); $i++) { 
-                var_dump($params);
                 $url .= '&amp;' . $params[$i][0] . '=' . $params[$i][1];
             }
         }
