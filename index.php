@@ -20,10 +20,9 @@ try {
     $router->addRoute('home', 'list_tweets',      '\iutnc\tweeterapp\control\HomeController');
     $router->addRoute('view', 'view_tweet',       '\iutnc\tweeterapp\control\TweetController');
     $router->addRoute('user', 'view_user_tweets', '\iutnc\tweeterapp\control\UserController');
-
+    $router->addRoute('view_tweet', 'view_tweet', '\iutnc\tweeterapp\control\TweetController');
+    $router->addRoute('post', 'post_tweet', '\iutnc\tweeterapp\control\PostController');
     $router->setDefaultRoute('list_tweets');
-
-    //print_r($router->routes());
 
     $router->run();
 } catch (\PDOException $th) {

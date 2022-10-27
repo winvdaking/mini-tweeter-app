@@ -34,7 +34,7 @@ abstract class TweeterView extends AbstractView implements Renderer
         $htmlHeader = '<header class="theme-backcolor1"> 
         <h1>MiniTweeTR</h1>  
         <nav id="navbar">
-        <a class="tweet-control" href="">
+        <a class="tweet-control" href="'. $this->router->urlFor('default') . '">
         <img alt="home" ></a>
         <a class="tweet-control" href="">
         <img alt="login" ></a>
@@ -48,7 +48,12 @@ abstract class TweeterView extends AbstractView implements Renderer
 
     public function makeFooter(): string
     {
-        $htmlFooter = '<footer class="theme-backcolor1"> La super app créée en Licence Pro &copy;2018 Dorian</footer>';
+        $htmlFooter = '';
+        $htmlFooter .= '<nav id="menu" class="theme-backcolor1">
+        <div id="nav-menu">
+        <div class="button theme-backcolor2">
+        <a href="' . $this->router->urlFor('post', []) . '">New</a></div></div></nav>';
+        $htmlFooter .= '<footer class="theme-backcolor1"> La super app créée en Licence Pro &copy;2018 Dorian</footer>';
         return $htmlFooter;
     }
 }

@@ -11,7 +11,7 @@ class HomeController extends AbstractController{
 
     public function execute(): void
     {
-        $data = Tweet::select()->get();
+        $data = Tweet::select()->orderBy('created_at', 'DESC')->get();
         $homeView = new HomeView($data);
         $homeView->makePage();
     }
