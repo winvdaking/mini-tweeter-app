@@ -23,7 +23,7 @@ abstract class AbstractRouter {
      * 
      */
     
-    static protected array $routes = [];
+    static public array $routes = [];
 
     /* 
      * Attribut statique qui stocke les alias des routes. Un alias est
@@ -51,7 +51,6 @@ abstract class AbstractRouter {
         $this->request = new \iutnc\mf\utils\HttpRequest();
     }
 
-
     /* 
      * Méthode addRoute : ajoute une route a la liste des routes 
      *
@@ -68,10 +67,7 @@ abstract class AbstractRouter {
      *
      */
 
-    abstract public function addRoute(string $name,
-                                      string $action,
-                                      string $ctrl): void;
-
+    abstract public function addRoute(string $name, string $action, string $ctrl, int $level): void;
 
     /*
      * Méthode setDefaultRoute : fixe la route par défault

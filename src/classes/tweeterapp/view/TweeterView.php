@@ -36,7 +36,7 @@ abstract class TweeterView extends AbstractView implements Renderer
         <nav id="navbar">
         <a class="tweet-control" href="'. $this->router->urlFor('default') . '">
         <img alt="home" ></a>
-        <a class="tweet-control" href="">
+        <a class="tweet-control" href="'. $this->router->urlFor('signup') .'">
         <img alt="login" ></a>
         <a class="tweet-control" href="">
         <img alt="signup"></a>

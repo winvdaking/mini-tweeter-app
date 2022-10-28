@@ -2,13 +2,14 @@
 
 namespace iutnc\mf\router;
 
+use iutnc\mf\auth\AbstractAuthentification;
+
 class Router extends AbstractRouter
 {
-
-    public function addRoute(string $name, string $action, string $ctrl): void
+    public function addRoute(string $name, string $action, string $ctrl, int $level = AbstractAuthentification::ACCESS_LEVEL_NONE): void
     {
         self::$aliases[$name] = $action;
-        self::$routes[$action] = $ctrl;
+        self::$routes[$action] = [$ctrl, $level];
     }
 
 
@@ -29,19 +30,23 @@ class Router extends AbstractRouter
      * Note : exécuter une route revient a instancier le contrôleur
      *        de la route et exécuter sa méthode execute
      */
-
     public function run(): void
     {
         if (empty($this->request->get['action'])) {
-            $default = new self::$routes[self::$aliases['default']];
+            $default = new self::$routes[self::$aliases['default']][0];
             $default->execute();
         } else {
             $action = self::$routes[$this->request->get['action']];
             if (isset($action)) {
-                $action = new $action;
-                $action->execute();
+                if (AbstractAuthentification::checkAccessRight($action[1])){
+                    $action = new $action[0];
+                    $action->execute();
+                }else {
+                    $default = new self::$routes[self::$aliases['default']][0];
+                    $default->execute();
+                }
             } else {
-                $default = new self::$routes[self::$aliases['default']];
+                $default = new self::$routes[self::$aliases['default']][0];
                 $default->execute();
             }
         }
@@ -82,7 +87,7 @@ class Router extends AbstractRouter
         $action = self::$aliases[$name];
         $url = $this->request->script_name .  '?action=' . $action;
         if (isset($params)) {
-            for ($i=0; $i < count($params); $i++) { 
+            for ($i = 0; $i < count($params); $i++) {
                 $url .= '&amp;' . $params[$i][0] . '=' . $params[$i][1];
             }
         }
@@ -91,7 +96,8 @@ class Router extends AbstractRouter
 
     public static function executeRoute($alias): void
     {
-        $route = new self::$routes[self::$aliases[$alias]];
+        $action = self::$routes[self::$aliases[$alias]];
+        $route = new $action[0];
         $route->execute();
     }
 }
