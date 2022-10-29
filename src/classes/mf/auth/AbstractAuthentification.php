@@ -128,7 +128,7 @@ abstract class AbstractAuthentification
          *       Soulever une exception
          *   sinon le hacher et retourner son empreinte
          */
-        if (strlen($password) > 7)
+        if (strlen($password) > self::MIN_PASSWORD_LENGTH)
             return password_hash($password, PASSWORD_BCRYPT, ['cost' => 14]);
         throw new AuthentificationException("Le mot de passe ne respect pas la politique.");
     }

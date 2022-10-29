@@ -1,9 +1,9 @@
 <?php
 
-use iutnc\mf\router\Router;
+require 'vendor/autoload.php';
+
 use iutnc\mf\view\AbstractView;
 
-require 'vendor/autoload.php';
 $configfile = parse_ini_file('conf/config.ini');
 
 AbstractView::setAppTitle('TweeterApp by dodo');
