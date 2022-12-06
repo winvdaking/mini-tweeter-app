@@ -31,7 +31,7 @@ abstract class TweeterView extends AbstractView implements Renderer
 
     public function makeHeader(): string
     {        
-        //A REFAIRE
+        //A REFAIRE PROPREMENT
         $htmlHeaderCo = '<header class="theme-backcolor1"> 
         <h1>MiniTweeTR</h1>  
         <nav id="navbar">
