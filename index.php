@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 require 'vendor/autoload.php';
 
@@ -29,7 +30,7 @@ try {
     $router->addRoute('following','view_following','\iutnc\tweeterapp\control\FollowingController', \iutnc\tweeterapp\auth\TweeterAuthentification::ACCESS_LEVEL_USER);
 
     $router->setDefaultRoute('list_tweets');
-    //var_dump(Router::$routes);
+
     $router->run();
 } catch (\PDOException $th) {
     die($th->getMessage());

@@ -30,20 +30,32 @@ abstract class TweeterView extends AbstractView implements Renderer
     }
 
     public function makeHeader(): string
-    {
-        $htmlHeader = '<header class="theme-backcolor1"> 
+    {        
+        $htmlHeaderCo = '<header class="theme-backcolor1"> 
         <h1>MiniTweeTR</h1>  
         <nav id="navbar">
         <a class="tweet-control" href="'. $this->router->urlFor('default') . '">
         <img alt="home" ></a>
-        <a class="tweet-control" href="'. $this->router->urlFor('signup') .'">
+        <a class="tweet-control" href="'. $this->router->urlFor('login') .'">
         <img alt="login" ></a>
-        <a class="tweet-control" href="">
+        <a class="tweet-control" href="'. $this->router->urlFor('signup') .'">
         <img alt="signup"></a>
         </nav> 
         </header>';
 
-        return $htmlHeader;
+        $htmlHeaderNotCo = '<header class="theme-backcolor1"> 
+        <h1>MiniTweeTR</h1>  
+        <nav id="navbar">
+        <a class="tweet-control" href="'. $this->router->urlFor('default') . '">
+        <img alt="home" ></a>
+        <a class="tweet-control" href="'. $this->router->urlFor('home') .'">
+        <img alt="me" ></a>
+        <a class="tweet-control" href="'. $this->router->urlFor('logout') .'">
+        <img alt="logout"></a>
+        </nav> 
+        </header>';
+
+        return !isset($_SESSION['user_profile']) ? $htmlHeaderCo : $htmlHeaderNotCo;
     }
 
     public function makeFooter(): string

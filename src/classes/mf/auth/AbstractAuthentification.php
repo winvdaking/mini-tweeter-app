@@ -10,7 +10,7 @@ abstract class AbstractAuthentification
     /* une constante pour le niveau le plus bas */
     const ACCESS_LEVEL_NONE = -9999;
 
-    /* la taill minimum des mot de pass */
+    /* la taill minimum des mot de passes */
     const MIN_PASSWORD_LENGTH = 6;
 
     protected static function loadProfile(int $id, int $level): void
@@ -28,16 +28,12 @@ abstract class AbstractAuthentification
          *    $level : son niveau d'accès
          * 
          */
-
         $_SESSION['user_profile']['id'] = $id;
         $_SESSION['user_profile']['access_level'] = $level;
     }
 
-
-
     public static function logout(): void
     {
-
         /* 
          * la méthode logout :
          * 
@@ -49,10 +45,8 @@ abstract class AbstractAuthentification
         unset($_SESSION['user_profile']);
     }
 
-
     public static function connectedUser(): ?int
     {
-
         /* 
          * la méthode connectedUser :
          * 
@@ -64,7 +58,6 @@ abstract class AbstractAuthentification
             return $_SESSION['user_profile']['id'];
         return null;
     }
-
 
     public static function checkAccessRight(int $requested): bool
     {
@@ -105,7 +98,6 @@ abstract class AbstractAuthentification
         }
         return $bool;
     }
-
 
     protected static function makePassword(string $password): string
     {
@@ -155,7 +147,8 @@ abstract class AbstractAuthentification
          *       charger le profile 
          */
         if (password_verify($given_pass, $db_hash))
-            self::connectedUser();
-        throw new AuthentificationException('Mot de passe ne correspond pas');
+            self::loadProfile($id, $level);
+        else
+            throw new AuthentificationException('Mot de passe incorrect.');
     }
 }
