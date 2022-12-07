@@ -4,7 +4,6 @@ namespace iutnc\tweeterapp\view;
 
 class PostView extends TweeterView
 {
-
     public function render(): string
     {
         $html = ''; 
