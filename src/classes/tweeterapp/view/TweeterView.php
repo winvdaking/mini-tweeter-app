@@ -35,32 +35,37 @@ abstract class TweeterView extends AbstractView implements Renderer
 
     public function renderTopMenu(): string
     {        
-        //A REFAIRE PROPREMENT
-        $htmlHeaderCo = '<header class="theme-backcolor1"> 
+        $headerHtml = '';
+        $admin = '';
+
+        if (isset($_SESSION['user_profile']))
+            if ($_SESSION['user_profile']['access_level'] === 2)
+                $admin .= '<a class="tweet-control" href="'. $this->router->urlFor('stats') .'"><img alt="stats" src="https://homepages.loria.fr/ABoumaza/teaching/php-lp/project/figs/login.png"></a>';
+
+        if (!isset($_SESSION['user_profile'])){
+            $headerHtml .= '
+            <a class="tweet-control" href="'. $this->router->urlFor('login') .'">
+            <img alt="login" src="https://homepages.loria.fr/ABoumaza/teaching/php-lp/project/figs/login.png" ></a>
+            <a class="tweet-control" href="'. $this->router->urlFor('signup') .'">
+            <img alt="signup" src="https://homepages.loria.fr/ABoumaza/teaching/php-lp/project/figs/signup.png"></a>';
+        }else{
+            $headerHtml .= '
+            <a class="tweet-control" href="'. $this->router->urlFor('following') .'">
+            <img alt="following" src="https://homepages.loria.fr/ABoumaza/teaching/php-lp/project/figs/followees.png" ></a>
+            <a class="tweet-control" href="'. $this->router->urlFor('logout') .'">
+            <img alt="logout" src="https://homepages.loria.fr/ABoumaza/teaching/php-lp/project/figs/logout.png"></a>' . $admin;
+        }
+
+        $html = '<header class="theme-backcolor1"> 
         <h1>MiniTweeTR</h1>  
         <nav id="navbar">
         <a class="tweet-control" href="'. $this->router->urlFor('default') . '">
         <img alt="home" src="https://homepages.loria.fr/ABoumaza/teaching/php-lp/project/figs/home.png"></a>
-        <a class="tweet-control" href="'. $this->router->urlFor('login') .'">
-        <img alt="login" src="https://homepages.loria.fr/ABoumaza/teaching/php-lp/project/figs/login.png" ></a>
-        <a class="tweet-control" href="'. $this->router->urlFor('signup') .'">
-        <img alt="signup" src="https://homepages.loria.fr/ABoumaza/teaching/php-lp/project/figs/signup.png"></a>
+        ' . $headerHtml . '
         </nav> 
         </header>';
 
-        $htmlHeaderNotCo = '<header class="theme-backcolor1"> 
-        <h1>MiniTweeTR</h1>  
-        <nav id="navbar">
-        <a class="tweet-control" href="'. $this->router->urlFor('default') . '">
-        <img alt="home" src="https://homepages.loria.fr/ABoumaza/teaching/php-lp/project/figs/home.png" ></a>
-        <a class="tweet-control" href="'. $this->router->urlFor('following') .'">
-        <img alt="following" src="https://homepages.loria.fr/ABoumaza/teaching/php-lp/project/figs/followees.png" ></a>
-        <a class="tweet-control" href="'. $this->router->urlFor('logout') .'">
-        <img alt="logout" src="https://homepages.loria.fr/ABoumaza/teaching/php-lp/project/figs/logout.png"></a>
-        </nav> 
-        </header>';
-
-        return !isset($_SESSION['user_profile']) ? $htmlHeaderCo : $htmlHeaderNotCo;
+        return $html;
     }
 
     public function renderBottomMenu(): string

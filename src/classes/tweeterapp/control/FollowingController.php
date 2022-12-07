@@ -14,14 +14,24 @@ class FollowingController extends AbstractController{
     {
         if ($this->request->post) {
             $flw = Follow::where('followee', '=', $_POST['followee'])->where('follower', '=', $_SESSION['user_profile']['id'])->first();
-            if (isset($_POST['unfollow'])) 
+            if (isset($_POST['unfollow'])){
                 $flw->delete();
-            else{
+
+                $usr = User::where('id', '=', $_POST['followee'])->first();
+                $nb = $usr->followers;
+                $usr->followers = $nb - 1;
+                $usr->save();
+            }else{
                 if(!$flw){
                     $newFlw = new Follow;
                     $newFlw->follower = $_SESSION['user_profile']['id'];
                     $newFlw->followee = $_POST['followee'];
                     $newFlw->save();
+
+                    $usr = User::where('id', '=', $_POST['followee'])->first();
+                    $nb = $usr->followers;
+                    $usr->followers = $nb + 1;
+                    $usr->save();
                 }
             }
         }
