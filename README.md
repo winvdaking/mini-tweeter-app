@@ -4,11 +4,11 @@
 
 ### Features
 
-[x] Login/Register/Logout
-[x] Post a tweet
-[x] View one/all tweet
-[x] Follow users
-[x] View stats for **Admin**
+- [x] Login/Register/Logout
+- [x] Post a tweet
+- [x] View one/all tweet
+- [x] Follow users
+- [x] View stats for **Admin**
 
 There is a trial game in ``tweeter.sql``.
 
