@@ -29,6 +29,8 @@ try {
     $router->addRoute('login','login','\iutnc\tweeterapp\control\LoginController');
     $router->addRoute('logout','logout','\iutnc\tweeterapp\control\LogoutController', TweeterAuthentification::ACCESS_LEVEL_USER);
     $router->addRoute('following','view_following','\iutnc\tweeterapp\control\FollowingController', TweeterAuthentification::ACCESS_LEVEL_USER);
+    $router->addRoute('stats','view_stats','\iutnc\tweeterapp\control\StatsController', TweeterAuthentification::ACCES_LEVEL_ADMIN);
+    $router->addRoute('stats_user','view_stats_user','\iutnc\tweeterapp\control\StatsUserController', TweeterAuthentification::ACCES_LEVEL_ADMIN);
 
     $router->setDefaultRoute('list_tweets');
 
