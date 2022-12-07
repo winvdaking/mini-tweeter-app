@@ -13,16 +13,19 @@ class StatsUserView extends TweeterView
         <article class="theme-backcolor2">  
         <h2>Statistiques de ' . $this->data->fullname . '</h2>';
 
-        $follower = Follow::where('followee', '=', $this->data->id)->get();
-        if ($follower) {
-            foreach ($follower as $value) {
+        $followee = Follow::where('followee', '=', $this->data->id)->get();
+        if (count($followee)) {
+            foreach ($followee as $value) {
                 $usr = User::where('id', '=', $value->follower)->first();
                 $html .= "<div class='tweet'>";
                 $html .= "<div class='tweet-text'><strong>{$usr->fullname}</strong> suit {$this->data->fullname}</div>";
                 $html .= "</div>";
             }
+        }else{
+            $html .= "<div class='tweet'>";
+            $html .= "<div class='tweet-text'>Personne ne suit {$this->data->fullname}...</div>";
+            $html .= "</div>";
         }
-
         
         $html .= '</article></section>';
 

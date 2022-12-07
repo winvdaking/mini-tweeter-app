@@ -40,7 +40,7 @@ abstract class TweeterView extends AbstractView implements Renderer
 
         if (isset($_SESSION['user_profile']))
             if ($_SESSION['user_profile']['access_level'] === 2)
-                $admin .= '<a class="tweet-control" href="'. $this->router->urlFor('stats') .'"><img alt="stats" src="https://homepages.loria.fr/ABoumaza/teaching/php-lp/project/figs/login.png"></a>';
+                $admin .= '<a class="tweet-control" href="'. $this->router->urlFor('stats') .'">⚙️</a>';
 
         if (!isset($_SESSION['user_profile'])){
             $headerHtml .= '

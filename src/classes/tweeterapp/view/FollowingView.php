@@ -12,6 +12,8 @@ class FollowingView extends TweeterView
         <article class="theme-backcolor2">  
         <h2>Following</h2>';
 
+        $usr = User::where('id', '=', $_SESSION['user_profile']['id'])->first();
+
         foreach ($this->data as $val) {
 
             $user = User::where('id', '=', $val->followee)->first();
@@ -22,6 +24,8 @@ class FollowingView extends TweeterView
             $html .= "</a>";
             $html .= "</div>";
         }
+        $html .= '<div style="margin-top: 3rem;"><strong>' . $usr->followers . ' followers</strong></div>';
+
         $html .= '</article></section>';
 
         return $html;

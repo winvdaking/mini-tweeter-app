@@ -14,7 +14,7 @@ class PostController extends AbstractController
         if ($this->request->post) {
             if (isset($_POST['text']) && !empty($_POST['text'])) {
                 $tweet = new Tweet();
-                $tweet->text = filter_var($_POST['text']));
+                $tweet->text = filter_var($_POST['text']);
                 $tweet->author = $_SESSION['user_profile']['id'];
                 $tweet->score = 0;
                 $tweet->save();

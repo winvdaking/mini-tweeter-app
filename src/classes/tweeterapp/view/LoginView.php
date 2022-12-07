@@ -9,8 +9,8 @@ class LoginView extends TweeterView
         $html = '';
         $html .= '<article class="theme-backcolor2">
         <form class="forms" action="'. $this->router->urlFor('login') .'" method=post>
-        <input class="forms-text" type=text name=username placeholder="username">
-        <input class="forms-text" type=password name=password placeholder="password">
+        <input class="forms-text" type=text name=username placeholder="Nom d\'utilisateur">
+        <input class="forms-text" type=password name=password placeholder="Mot de passe">
         <button class="forms-button" name=login_button type="submit">Login</button>
         </form></article>';
 
