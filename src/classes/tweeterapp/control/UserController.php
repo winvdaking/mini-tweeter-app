@@ -10,7 +10,7 @@ class UserController extends AbstractController{
 
     public function execute(): void 
     {   
-        $data = User::where('id','=',$_GET['id'])->first()->tweets()->get();
+        $data = User::where('id','=', $_GET['id'])->first()->tweets()->get();
         $userView = new UserView($data);
         $userView->makePage();
     }
