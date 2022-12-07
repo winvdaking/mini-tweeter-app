@@ -13,10 +13,10 @@ class LoginController extends AbstractController
     public function execute(): void
     {
         if ($this->request->post) {
-            if (!User::where('username', '=', $_POST['username'])->count())
+            if (!User::where('username', '=', filter_var($_POST['username']))->count())
                 throw new AuthentificationException('Erreur lors de la connexion.');
             
-            TweeterAuthentification::login($_POST['username'], $_POST['password']);
+            TweeterAuthentification::login(filter_var($_POST['username']), $_POST['password']);
             \iutnc\mf\router\Router::executeRoute('home');
         }else{
             $loginView = new LoginView();
