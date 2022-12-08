@@ -16,6 +16,15 @@ There is a trial game in ``tweeter.sql``.
 
 Using [myframework](https://github.com/winvdaking/myframework).
 
+#### Test
+
+Url : [Mini Tweeter](https://webetu.iutnc.univ-lorraine.fr/www/lopez94u/Tweeter/).
+
+_Compte de test :_
+
+Username : `dorian1`
+Password : `dorian1`
+
 Thanks
 ---
 Winv
