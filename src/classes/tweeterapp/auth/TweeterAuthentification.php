@@ -39,6 +39,7 @@ class TweeterAuthentification extends AbstractAuthentification
             $usr->password = self::makePassword($password);
             $usr->fullname = $fullname;
             $usr->level = $level;
+            $usr->followers = 0;
             $usr->save();
         } catch (\Throwable $th) {
             throw $th;
